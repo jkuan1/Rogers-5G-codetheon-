@@ -6,39 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseIntArray;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
-import com.otaliastudios.cameraview.CameraView;
-import com.otaliastudios.cameraview.filter.Filter;
-import com.otaliastudios.cameraview.filter.Filters;
-import com.otaliastudios.cameraview.filter.MultiFilter;
-import com.otaliastudios.cameraview.frame.Frame;
-import com.otaliastudios.cameraview.frame.FrameProcessor;
-import com.otaliastudios.cameraview.size.Size;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -56,7 +31,8 @@ public class CameraActivity extends AppCompatActivity implements Observer {
 
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.viewParent);
         drawView = new DrawView(getApplicationContext());
-        viewGroup.addView(drawView);
+        viewGroup.addView(drawView, 0);
+        drawView.invalidate();
 
         GetAndOverlay child = new GetAndOverlay();
         child.runCamera(this, this);
@@ -68,7 +44,7 @@ public class CameraActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object listObj) {
         localFaces = ((GetAndOverlay) o).getFaces();
         Log.println(Log.INFO,
-                "tracedFaces",
+                "observerFacesFound",
                 localFaces.toString());
         drawView.invalidate();
     }
@@ -79,6 +55,47 @@ public class CameraActivity extends AppCompatActivity implements Observer {
         public DrawView(Context context) {
             super(context);
             setWillNotDraw(false);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int desiredWidth = 1080;
+            int desiredHeight = 2244;
+
+            int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+            int width;
+            int height;
+
+            //Measure Width
+            if (widthMode == MeasureSpec.EXACTLY) {
+                //Must be this size
+                width = widthSize;
+            } else if (widthMode == MeasureSpec.AT_MOST) {
+                //Can't be bigger than...
+                width = Math.min(desiredWidth, widthSize);
+            } else {
+                //Be whatever you want
+                width = desiredWidth;
+            }
+
+            //Measure Height
+            if (heightMode == MeasureSpec.EXACTLY) {
+                //Must be this size
+                height = heightSize;
+            } else if (heightMode == MeasureSpec.AT_MOST) {
+                //Can't be bigger than...
+                height = Math.min(desiredHeight, heightSize);
+            } else {
+                //Be whatever you want
+                height = desiredHeight;
+            }
+
+            //MUST CALL THIS
+            setMeasuredDimension(width, height);
         }
 
         @Override
@@ -96,6 +113,7 @@ public class CameraActivity extends AppCompatActivity implements Observer {
                         radius,
                         paint);
             }
+            canvas.drawCircle(0, 0, 500, paint);
         }
 
     }

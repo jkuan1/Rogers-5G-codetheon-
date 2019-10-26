@@ -30,24 +30,23 @@ import java.util.Observer;
 public class GetAndOverlay extends Observable {
     private FirebaseVisionFaceDetectorOptions options;
     private FirebaseVisionFaceDetector detector;
-    private Activity act;
     private List<FirebaseVisionFace> lastFaces;
+    private Frame lastFrame;
 
     // Access last seen face w/ getFaces
     protected void runCamera(Activity parentActivity, LifecycleOwner lifeCycleOwner) {
-        this.addObserver((Observer) parentActivity);
-
+        addObserver((Observer) parentActivity);
 
         lastFaces = new ArrayList<>();
         options = new FirebaseVisionFaceDetectorOptions.Builder()
                 .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
                 .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                 .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+                .setContourMode(FirebaseVisionFaceDetectorOptions.NO_CONTOURS)
                 .enableTracking()
                 .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);
-        act = parentActivity;
 
         CameraView camera = parentActivity.findViewById(R.id.camera);
         camera.setLifecycleOwner(lifeCycleOwner);
@@ -55,7 +54,7 @@ public class GetAndOverlay extends Observable {
         camera.addFrameProcessor(new FrameProcessor() {
             @Override
             @WorkerThread
-            public void process(Frame frame) {
+            public void process(final Frame frame) {
                 byte[] data = frame.getData();
                 int rotation = frame.getRotation();
                 long time = frame.getTime();
@@ -79,9 +78,11 @@ public class GetAndOverlay extends Observable {
                                             public void onSuccess(List<FirebaseVisionFace> faces) {
                                                 if (faces.size() != 0) {
                                                     lastFaces = faces;
+                                                    lastFrame = frame;
                                                     Log.println(Log.INFO,
                                                             "tracedFaces",
                                                             faces.toString());
+                                                    setChanged();
                                                     notifyObservers(faces);
                                                 }
                                             }
@@ -101,5 +102,8 @@ public class GetAndOverlay extends Observable {
 
     public List<FirebaseVisionFace> getFaces() {
         return lastFaces;
+    }
+    public Frame getFrame() {
+        return lastFrame;
     }
 }
