@@ -37,17 +37,17 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:text="@string/Login!"
+        android:id="@+id/LoginButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:textColor="#FFFF"
-        android:id="@+id/LoginButton"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:text="Login!"
+        android:textColor="#FFFF" />
 
 
     <Button
-        android:text="@string/Forgot Password?"
+        android:text="Forgot Password?"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
