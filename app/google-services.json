@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "319332929243",
+    "firebase_url": "https://mlkit-d8a97.firebaseio.com",
+    "project_id": "mlkit-d8a97",
+    "storage_bucket": "mlkit-d8a97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319332929243:android:ec3ca6f9100ca3636106fe",
+        "android_client_info": {
+          "package_name": "com.example.rogers5g"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319332929243-h1jnuddv82031t3jebeiu6pgp5t1frvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rogers5g",
+            "certificate_hash": "a28a8faeddbd98ceb89b4e2c0eacba04cef6a8fc"
+          }
+        },
+        {
+          "client_id": "319332929243-rp44a6uvvar8k37c80ad4h442jqik3hu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3_gBw_tWhouOFS6r88hoe_N3AxP-mTrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319332929243-rp44a6uvvar8k37c80ad4h442jqik3hu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
