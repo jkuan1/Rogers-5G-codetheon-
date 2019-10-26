@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.all" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,17 +24,23 @@
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <com.otaliastudios.cameraview.CameraView
-                android:id="@+id/camera"
-                android:keepScreenOn="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <com.otaliastudios.cameraview.CameraView-->
+<!--                android:id="@+id/camera"-->
+<!--                android:keepScreenOn="true"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
         </activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
         <!-- To use multiple models: android:value="face,model2,model3" -->
+
+        <!-- Indicates that the app requires ARCore ("AR Required"). Causes the Google
+       Play Store to download and install Google Play Services for AR when the
+       app is installed.
+  -->
+        <meta-data android:name="com.google.ar.core" android:value="required" />
 
     </application>
 
