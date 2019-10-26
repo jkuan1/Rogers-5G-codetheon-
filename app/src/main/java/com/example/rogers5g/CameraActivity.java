@@ -40,6 +40,8 @@ public class CameraActivity extends AppCompatActivity {
     private FirebaseVisionFaceDetectorOptions options;
     private FirebaseVisionFaceDetector detector;
     private CameraActivity act;
+    private List<FirebaseVisionFace> lastFaces;
+
     // For activities
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class CameraActivity extends AppCompatActivity {
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
                         .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
                         .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+                        .enableTracking()
                         .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);
@@ -83,6 +86,7 @@ public class CameraActivity extends AppCompatActivity {
                                         new OnSuccessListener<List<FirebaseVisionFace>>() {
                                             @Override
                                             public void onSuccess(List<FirebaseVisionFace> faces) {
+                                                lastFaces = faces;
                                                 Log.println(Log.INFO,
                                                         "tracedFaces",
                                                         faces.toString());
@@ -101,4 +105,7 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
+    public List<FirebaseVisionFace> getFaces() {
+        return lastFaces;
+    }
 }
