@@ -57,9 +57,8 @@ public class CameraActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        CameraView camera = findViewById(R.id.camera1);
+        CameraView camera = findViewById(R.id.camera);
         camera.setLifecycleOwner(this);
-        camera.setFilter(new MultiFilter(Filters.TINT.newInstance()));
         // https://natario1.github.io/CameraView/docs/frame-processing.html
         camera.addFrameProcessor(new FrameProcessor() {
             @Override
