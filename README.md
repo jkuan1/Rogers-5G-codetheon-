@@ -10,3 +10,4 @@
 - https://medium.com/androidiots/firebase-ml-kit-101-face-detection-5057190e58c0
 - https://heartbeat.fritz.ai/building-a-real-time-face-detector-in-android-with-ml-kit-f930eb7b36d9
 - https://github.com/husaynhakeem/android-face-detector?source=post_page-----f930eb7b36d9---------------------- (frame-by-frame processing built on top of the firebase faces MLK)
+- https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Frame: AR Core Frame Class; ray-tracing may map to paintball shot?
