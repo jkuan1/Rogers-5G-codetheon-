@@ -21,13 +21,9 @@
 
         <activity android:name=".CameraActivity">
             <intent-filter>
+                <action android:name="com.otaliastudios.cameraview.CameraView" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <com.otaliastudios.cameraview.CameraView
-                android:id="@+id/camera"
-                android:keepScreenOn="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </activity>
 
         <meta-data
