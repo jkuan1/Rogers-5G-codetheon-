@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,13 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        /*
         email = (EditText)findViewById(R.id.login_email_input);
         password = (EditText)findViewById(R.id.login_password_input);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         button = (Button)findViewById(R.id.login);
-
+        */
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +56,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             currentUser = mAuth.getCurrentUser();
                             finish();
+                            /*
                             startActivity(new Intent(getApplicationContext(),
                                     ProfileActivity.class));
+                             */
                         }else {
                             Toast.makeText(LoginActivity.this, "couldn't login", Toast.LENGTH_SHORT).show();
                         }

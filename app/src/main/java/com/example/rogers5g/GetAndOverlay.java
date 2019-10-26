@@ -24,8 +24,10 @@ import com.otaliastudios.cameraview.size.Size;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class GetAndOverlay {
+public class GetAndOverlay extends Observable {
     private FirebaseVisionFaceDetectorOptions options;
     private FirebaseVisionFaceDetector detector;
     private Activity act;
@@ -33,6 +35,9 @@ public class GetAndOverlay {
 
     // Access last seen face w/ getFaces
     protected void runCamera(Activity parentActivity, LifecycleOwner lifeCycleOwner) {
+        this.addObserver((Observer) parentActivity);
+
+
         lastFaces = new ArrayList<>();
         options = new FirebaseVisionFaceDetectorOptions.Builder()
                 .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
@@ -76,7 +81,8 @@ public class GetAndOverlay {
                                                     lastFaces = faces;
                                                     Log.println(Log.INFO,
                                                             "tracedFaces",
-                                                            lastFaces.toString());
+                                                            faces.toString());
+                                                    notifyObservers(faces);
                                                 }
                                             }
                                         })
